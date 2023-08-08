@@ -4,9 +4,9 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "dev": "ts-node-dev --transpile-only ./src/server.ts",
+    "dev": "ts-node-dev --transpile-only ./src/index.ts",
     "build": "tsc",
-    "start": "node ./build/server.js",
+    "start": "node ./build/index.js",
     "lint": "eslint src --ext .ts",
     "lint:fix": "npm run lint -- --fix"
   },
