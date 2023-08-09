@@ -7,12 +7,14 @@ type Handler = (
 ) => void
 
 const allRoutes = {
-  '/heroes:get': ((request, response) => {
+  '/heroes:get': (async (request, response) => {
+    // throw new Error('HEROES ERROR')
     response.write('GET')
     response.end()
   }) as Handler,
   // 404 routes
-  default: ((request, response) => {
+  default: (async (request, response) => {
+    // throw new Error('DEFAULT ERROR')
     response.writeHead(404, DEFAULT_HEADER)
     response.write('Not found')
     response.end()
@@ -26,5 +28,22 @@ export const handler: Handler = (request, response) => {
   const routeChosen =
     allRoutes[routeKey as keyof typeof allRoutes] || allRoutes.default
 
-  return routeChosen(request, response)
+  return Promise.resolve(routeChosen(request, response)).catch(
+    handlerError(response),
+  )
+}
+
+export const handlerError = (response: ServerResponse<IncomingMessage>) => {
+  return (error: Error) => {
+    console.log('Something went wrong', error.stack)
+
+    response.writeHead(500, DEFAULT_HEADER)
+    response.write(
+      JSON.stringify({
+        error: 'Internet server error',
+      }),
+    )
+
+    return response.end()
+  }
 }
