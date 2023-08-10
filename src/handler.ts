@@ -1,5 +1,8 @@
 import { ServerResponse, IncomingMessage } from 'node:http'
 import { DEFAULT_HEADER } from './constants/defaultHeader'
+import { routes } from './routes/hero/hero'
+
+const heroRoute = routes()
 
 type Handler = (
   request: IncomingMessage,
@@ -7,11 +10,7 @@ type Handler = (
 ) => void
 
 const allRoutes = {
-  '/heroes:get': (async (request, response) => {
-    // throw new Error('HEROES ERROR')
-    response.write('GET')
-    response.end()
-  }) as Handler,
+  ...heroRoute,
   // 404 routes
   default: (async (request, response) => {
     // throw new Error('DEFAULT ERROR')
