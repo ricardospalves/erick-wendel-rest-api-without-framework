@@ -1,4 +1,13 @@
 import { ServerResponse, IncomingMessage } from 'node:http'
+import { once } from 'node:events'
+import { Hero } from '../../entities/hero/Hero'
+import { DEFAULT_HEADER } from '../../constants/defaultHeader'
+
+type RequestData = {
+  name: string
+  age: number
+  power: string
+}
 
 export const routes = () => {
   return {
@@ -14,9 +23,20 @@ export const routes = () => {
       request: IncomingMessage,
       response: ServerResponse<IncomingMessage>,
     ) => {
+      const data = await once(request, 'data')
+      const item = JSON.parse(`${data}`) as RequestData
+      const hero = new Hero(item)
+      const heroID = hero.id
+
       // throw new Error('HEROES ERROR')
-      response.write('GET')
-      response.end()
+      response.writeHead(201, DEFAULT_HEADER)
+      response.write(
+        JSON.stringify({
+          heroID,
+          message: 'User created with success',
+        }),
+      )
+      return response.end()
     },
   }
 }
