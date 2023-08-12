@@ -32,11 +32,11 @@ test('Hero Integration Test Suit', async (testConstext) => {
     const result = await request.json()
 
     assert.deepStrictEqual(
-      result.success,
+      result.message,
       'User created with success',
       'should return a valid text message',
     )
-    assert.ok(result.id.length > 30, 'id should be a valid uuid')
+    assert.ok(result.heroID.length > 30, 'id should be a valid uuid')
   })
 
   await promisify(server.close.bind(server))()
