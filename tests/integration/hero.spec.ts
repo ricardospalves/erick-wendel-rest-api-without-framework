@@ -24,7 +24,7 @@ test('Hero Integration Test Suit', async (testConstext) => {
     })
 
     assert.deepStrictEqual(
-      request.headers.get('content-type'),
+      request.headers.get('Content-Type'),
       'application/json',
     )
     assert.strictEqual(request.status, 201)
