@@ -1,7 +1,7 @@
 import { ServerResponse, IncomingMessage } from 'node:http'
 import { once } from 'node:events'
 import { HeroEntity } from '../../entities/HeroEntity'
-import { DEFAULT_HEADER } from '../../constants/defaultHeader'
+import { DEFAULT_HEADER } from '../../constants/DEFAULT_HEADER'
 
 type RequestData = {
   name: string

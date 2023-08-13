@@ -1,5 +1,5 @@
 import { ServerResponse, IncomingMessage } from 'node:http'
-import { DEFAULT_HEADER } from './constants/defaultHeader'
+import { DEFAULT_HEADER } from './constants/DEFAULT_HEADER'
 import { routes } from './routes/hero/hero'
 
 const heroRoute = routes()
