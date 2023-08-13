@@ -1,6 +1,6 @@
 import { ServerResponse, IncomingMessage } from 'node:http'
 import { once } from 'node:events'
-import { Hero } from '../../entities/hero/Hero'
+import { HeroEntity } from '../../entities/HeroEntity'
 import { DEFAULT_HEADER } from '../../constants/defaultHeader'
 
 type RequestData = {
@@ -25,7 +25,7 @@ export const routes = () => {
     ) => {
       const data = await once(request, 'data')
       const item = JSON.parse(`${data}`) as RequestData
-      const hero = new Hero(item)
+      const hero = new HeroEntity(item)
       const heroID = hero.id
 
       // throw new Error('HEROES ERROR')
