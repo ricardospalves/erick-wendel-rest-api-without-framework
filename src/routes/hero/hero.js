@@ -5,7 +5,9 @@ import { DEFAULT_HEADER } from '../../constants/DEFAULT_HEADER.js'
 export const routes = ({ heroService }) => {
   return {
     '/heroes:get': async (request, response) => {
-      response.write('GET')
+      const heroes = await heroService.find()
+
+      response.write(JSON.stringify({ results: heroes }))
 
       return response.end()
     },
